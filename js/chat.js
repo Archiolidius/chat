@@ -1,3 +1,6 @@
+/**
+ * Created by alex on 14.06.2014.
+ */
 var socket = new WebSocket("ws://localhost:8081");
 
 //send message
