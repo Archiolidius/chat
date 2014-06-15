@@ -3,14 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>WebSocket chat</title>
+    <link href="bootstrap-3.1.1/css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" type="text/css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form name="publish">
-    <input type="text" name="message"/>
-    <input type="submit" value="Send"/>
-</form>
-<div id="subshribe"></div>
+<div class="container">
+    <div class=" center-block panel panel-primary ">
+        <div class="panel-heading">
+            <h3 class="panel-title">WebSocket chat</h3>
+        </div>
+        <div class="panel-body">
+            <div id="subshribe">
+
+            </div>
+            <form name="publish">
+                <textarea class="form-control" name="message" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="newUser">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nickname choose</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-inline text-center" role="form" id="nicknameForm">
+                    <h4>Enter you nickname:</h4>
+                    <div class="form-group">
+                        <label class="sr-only" for="nickname">Email address</label>
+                        <input type="text" class="form-control" id="nickname" placeholder="Nickname">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary sendNickname" data-dismiss="modal">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="js/chat.js"></script>
+
 </body>
 </html>

@@ -8,21 +8,37 @@ var clients = {};
 
 var webSocketServer = new WebSocketServer.Server({port: 8081});
 webSocketServer.on('connection', function (ws) {
-    var id = Math.random();
-    clients[id] = ws;
-    console.log('new connection. User: ' + id);
-
+    var nickName;
     ws.on('message', function (message) {
-        console.log('new message: ' + message);
-
-        for (var key in clients) {
-            clients[key].send(message);
+        if (message.split(':')[0] === 'Nickname') {
+            nickName = message.split(':')[1];
+            clients[nickName] = ws;
+            console.log('New user: ' + nickName);
+            var data = {
+                text: 'User ' + nickName + ' has been connected to this chat',
+                type: 'systemMessage',
+                nickname: null
+            };
+            for (var key in clients) {
+                clients[key].send(JSON.stringify(data))
+            }
+        } else {
+            console.log('new message: ' + message);
+            for (var key in clients) {
+                var data = {
+                    text: message,
+                    type: 'userMessage',
+                    nickname: nickName
+                };
+                //ws.send(JSON.stringify(data))
+                clients[key].send(JSON.stringify(data));
+            }
         }
     });
 
     ws.on('close', function () {
-        console.log('Connection is close' + id);
-        delete clients[id];
+        console.log('Connection is close' + nickName);
+        delete clients[nickName];
     })
 });
 
