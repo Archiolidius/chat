@@ -14,10 +14,19 @@ webSocketServer.on('connection', function (ws) {
             nickName = message.split(':')[1];
             clients[nickName] = ws;
             console.log('New user: ' + nickName);
+            var clients_len = (function () {
+                var i = 0;
+                for (var key in clients) {
+                    i++
+                }
+                return i;
+            })();
+            console.log(clients_len);
             var data = {
-                text: 'User ' + nickName + ' has been connected to this chat',
+                text: 'User <strong>' + nickName + '</strong> has been connected to this chat',
                 type: 'systemMessage',
-                nickname: null
+                nickname: null,
+                clientsCount: clients_len
             };
             for (var key in clients) {
                 clients[key].send(JSON.stringify(data))

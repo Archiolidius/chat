@@ -2,7 +2,8 @@
  * Created by alex on 14.06.2014.
  */
 $(document).ready(function () {
-    var socket;
+    var socket,
+        clientsCount;
     var chat = {
         init: function () {
             this.getUserName();
@@ -19,6 +20,8 @@ $(document).ready(function () {
             if (nickName && (nickName !== '')) {
                 socket.send('Nickname: ' + nickName)
             }
+            $('#newUser').modal('hide');
+            return false;
         },
 
         showMessage: function (messageText, type, nickname) {
@@ -26,26 +29,23 @@ $(document).ready(function () {
                 var messageItem = '<div><h5 class="systemMessage">' + messageText + '</h5></div>';
                 $('#subshribe').append(messageItem);
             } else if (type == 'userMessage') {
-                var messageItem = '<div class="subshribeItem"><strong class="nickname">'+nickname+'</strong>:<p class="messageText">'+messageText+'</p></div>';
+                var messageItem = '<div class="subshribeItem"><strong class="nickname">' + nickname + '</strong>:<p class="messageText">' + messageText + '</p></div>';
                 $('#subshribe').append(messageItem);
             }
         },
 
+        clientsCount: function(clientsCount){
+            $('.clientsCount span').text(clientsCount);
+        },
         socket: function () {
             var that = this;
 
-           socket = new WebSocket("ws://localhost:8081");
-
-            //send message
-            document.forms.publish.onsubmit = function () {
-                var submitMessage = this.message.value;
-                socket.send(submitMessage);
-                return false;
-            };
+            socket = new WebSocket("ws://localhost:8081");
 
             //incoming message
             socket.onmessage = function (event) {
-                var obj = JSON.parse(event.data)
+                var obj = JSON.parse(event.data);
+                that.clientsCount(obj.clientsCount);
                 that.showMessage(obj.text, obj.type, obj.nickname);
             };
 
@@ -65,7 +65,16 @@ $(document).ready(function () {
         },
 
         bind: function () {
-            $('.sendNickname').on('click', this.sendNickname)
+            $('.sendNickname').on('click', this.sendNickname);
+            $('#nicknameForm').on('submit', this.sendNickname);
+
+            //send message
+            document.forms.publish.onsubmit = function () {
+                var submitMessage = this.message.value;
+                socket.send(submitMessage);
+                this.message.value = '';
+                return false;
+            };
         }
     };
 

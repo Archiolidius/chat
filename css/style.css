@@ -1,3 +1,14 @@
 /**
  * Created by alex on 14.06.2014.
  */
+h5.systemMessage{
+    color: indianred;
+}
+
+h5.systemMessage>strong{
+    color: red;
+}
+
+form[name='publish'] button[type='submit']{
+    margin-top: 10px;
+}
