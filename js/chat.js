@@ -3,7 +3,8 @@
  */
 $(document).ready(function () {
     var socket,
-        clientsCount;
+        clientsCount,
+        messageField = $('textarea[name="message"]');
     var chat = {
         init: function () {
             this.getUserName();
@@ -22,6 +23,10 @@ $(document).ready(function () {
             }
             $('#newUser').modal('hide');
             return false;
+        },
+
+        sendMessage: function (message) {
+            socket.send(message);
         },
 
         showMessage: function (messageText, type, nickname) {
@@ -63,18 +68,44 @@ $(document).ready(function () {
             };
             //show message
         },
+        smiles: function () {
+            $('.choose_smile').popover({
+                html: ' '
+            });
+            $('body').on('click','.smiles-popover .smile', function () {
+                var smile = $(this).data('smile');
+                var smileHtml = '<span class="smile" data-smile="'+smile+'"></span>'
+                messageField.val(messageField.val() + smileHtml)
+            })
+        },
 
         bind: function () {
+            var that = this;
             $('.sendNickname').on('click', this.sendNickname);
+            $('#nicknameForm').on('submit', this.sendNickname);
             $('#nicknameForm').on('submit', this.sendNickname);
 
             //send message
             document.forms.publish.onsubmit = function () {
-                var submitMessage = this.message.value;
-                socket.send(submitMessage);
+                that.sendMessage(this.message.value);
                 this.message.value = '';
                 return false;
             };
+
+            document.forms.publish.message.onkeyup = function (e) {
+                if (e.keyCode == 13) {
+                    if (e.shiftKey === true) {
+                        //if Shift+Enter = new line
+                    }
+                    else {
+                        that.sendMessage(this.value);
+                        this.value = '';
+                    }
+                    return false;
+                }
+            };
+
+            this.smiles()
         }
     };
 
