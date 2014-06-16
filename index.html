@@ -5,8 +5,12 @@
     <title>WebSocket chat</title>
     <link href="bootstrap-3.1.1/css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/perfect-scrollbar.css" rel="stylesheet">
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
+    <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/perfect-scrollbar.js"></script>
+
 </head>
 <body>
 <div class="container">
@@ -15,9 +19,7 @@
             <h3 class="panel-title">WebSocket chat</h3>
         </div>
         <div class="panel-body">
-            <div id="subshribe">
-
-            </div>
+            <ul id="subshribe"></ul>
             <form name="publish">
                 <textarea class="form-control" name="message" rows="3" placeholder="Enter you message"></textarea>
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -35,7 +37,7 @@
     </div>
 </div>
 <div class="modal fade" id="newUser">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -62,6 +64,5 @@
 <!-- /.modal -->
 
 <script src="js/chat.js"></script>
-
 </body>
 </html>

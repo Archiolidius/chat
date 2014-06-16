@@ -9,6 +9,28 @@ h5.systemMessage > strong {
     color: red;
 }
 
+p.messageText {
+    color: #777777;
+    padding-top: 5px;
+}
+
+ul#subshribe{
+    margin-right: 40px;
+    max-height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+ul#subshribe li {
+    list-style: none;
+    border-bottom: 1px solid #d4d4d4;
+    border-top: 1px solid #eeeeee;
+    padding: 10px;
+    padding-bottom: 5px;
+    box-shadow: -2px 0 3px #ddd;
+    margin-bottom: 5px;
+}
+
 form[name='publish'] button[type='submit'],
 form[name='publish'] button[type='button'] {
     margin-top: 10px;

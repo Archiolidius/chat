@@ -5,6 +5,7 @@ $(document).ready(function () {
     var socket,
         clientsCount,
         messageField = $('textarea[name="message"]');
+
     var chat = {
         init: function () {
             this.getUserName();
@@ -29,14 +30,33 @@ $(document).ready(function () {
             socket.send(message);
         },
 
+        getDate: function () {
+            var date = new Date();
+            var curTime = {};
+            curTime.hours = date.getHours();
+            curTime.minutes = date.getMinutes();
+            curTime.second = date.getSeconds();
+            var dateString = (function () {
+                var str = '';
+                for (var key in curTime) {
+                    str += curTime[key] += ':';
+                }
+                return str.substring(0, str.length - 1);
+            })();
+            return dateString;
+        },
+
         showMessage: function (messageText, type, nickname) {
             if (type == 'systemMessage') {
                 var messageItem = '<div><h5 class="systemMessage">' + messageText + '</h5></div>';
                 $('#subshribe').append(messageItem);
             } else if (type == 'userMessage') {
-                var messageItem = '<div class="subshribeItem"><strong class="nickname">' + nickname + '</strong>:<p class="messageText">' + messageText + '</p></div>';
+                var messageItem = '<li class="subshribeItem"><strong class="nickname">' + nickname + '</strong><span class="massageDate pull-right"><span class="glyphicon glyphicon-time"></span>  ' + this.getDate() + '</span><p class="messageText">' + messageText + '</p></li>';
                 $('#subshribe').append(messageItem);
             }
+
+            $('#subshribe').perfectScrollbar('update');
+            $("#subshribe").animate({ scrollTop: $('#subshribe')[0].scrollHeight}, 500);
         },
 
         clientsCount: function (clientsCount) {
@@ -72,9 +92,9 @@ $(document).ready(function () {
             $('.choose_smile').popover({
                 html: ' '
             });
-            $('body').on('click','.smiles-popover .smile', function () {
+            $('body').on('click', '.smiles-popover .smile', function () {
                 var smile = $(this).data('smile');
-                var smileHtml = '<span class="smile" data-smile="'+smile+'"></span>'
+                var smileHtml = '<span class="smile" data-smile="' + smile + '"></span>'
                 messageField.val(messageField.val() + smileHtml)
             })
         },
@@ -82,7 +102,6 @@ $(document).ready(function () {
         bind: function () {
             var that = this;
             $('.sendNickname').on('click', this.sendNickname);
-            $('#nicknameForm').on('submit', this.sendNickname);
             $('#nicknameForm').on('submit', this.sendNickname);
 
             //send message
@@ -105,7 +124,8 @@ $(document).ready(function () {
                 }
             };
 
-            this.smiles()
+            this.smiles();
+            $('#subshribe').perfectScrollbar();
         }
     };
 
