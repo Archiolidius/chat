@@ -48,6 +48,21 @@ webSocketServer.on('connection', function (ws) {
     ws.on('close', function () {
         console.log('Connection is close' + nickName);
         delete clients[nickName];
+        var clients_len = (function () {
+            var i = 0;
+            for (var key in clients) {
+                i++
+            }
+            return i;
+        })();
+        var data = {
+            text: 'User <strong>' + nickName + '</strong> leave from this chat',
+            type: 'systemMessage',
+            clientsCount: clients_len
+        }
+        for (var key in clients) {
+            clients[key].send(JSON.stringify(data))
+        }
     })
 });
 

@@ -1,14 +1,30 @@
 /**
  * Created by alex on 14.06.2014.
  */
-h5.systemMessage{
+h5.systemMessage {
     color: indianred;
 }
 
-h5.systemMessage>strong{
+h5.systemMessage > strong {
     color: red;
 }
 
-form[name='publish'] button[type='submit']{
+form[name='publish'] button[type='submit'],
+form[name='publish'] button[type='button'] {
     margin-top: 10px;
+}
+
+.smile {
+    background: url("../img/smiles_min.png");
+    height: 40px;
+    width: 30px;
+    display: inline-block;
+}
+
+.smile[data-smile=":)"] {
+    background-position: 0 0;
+}
+
+.smile[data-smile=":D"] {
+    background-position: -82px -46px;
 }

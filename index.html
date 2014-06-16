@@ -21,13 +21,19 @@
             <form name="publish">
                 <textarea class="form-control" name="message" rows="3" placeholder="Enter you message"></textarea>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <!--TODO: Make normal-->
+                <button type="button" class="btn btn-default choose_smile" data-container="body" data-toggle="popover"
+                        data-placement="top"
+                        data-content='<div class="smiles-popover"><span class="smile" data-smile=":D"></span><span class="smile" data-smile=":)"></span><span class="smile" data-smile=":D"></span><span class="smile" data-smile=":)"></span><span class="smile" data-smile=":)"></span><span class="smile" data-smile=":)"></span><span class="smile" data-smile=":)"></span><span class="smile" data-smile=":)"></span><span class="smile" data-smile=":)"></span></div>'>
+                    <span class="smile" data-smile=":)"></span>
+                </button>
+                <!--TODO: Make normal-->
             </form>
 
             <h5 class="clientsCount pull-right">Online: <span>0</span> users</h5>
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="newUser">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -38,6 +44,7 @@
             <div class="modal-body">
                 <form class="form-inline text-center" role="form" id="nicknameForm">
                     <h4>Enter you nickname:</h4>
+
                     <div class="form-group">
                         <label class="sr-only" for="nickname">Email address</label>
                         <input type="text" class="form-control" id="nickname" placeholder="Nickname">
@@ -47,9 +54,12 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary sendNickname" data-dismiss="modal">Save</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <script src="js/chat.js"></script>
 

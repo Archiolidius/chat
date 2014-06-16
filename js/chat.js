@@ -34,7 +34,7 @@ $(document).ready(function () {
             }
         },
 
-        clientsCount: function(clientsCount){
+        clientsCount: function (clientsCount) {
             $('.clientsCount span').text(clientsCount);
         },
         socket: function () {
